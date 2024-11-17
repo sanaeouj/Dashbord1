@@ -14,10 +14,8 @@ import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNone
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 
-// Largeur du drawer
 const drawerWidth = 240;
 
-// Styled AppBar avec transition basée sur la prop `open`
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
 })(({ theme, open }) => ({
@@ -35,7 +33,6 @@ const AppBar = styled(MuiAppBar, {
   }),
 }));
 
-// Composant stylisé pour la barre de recherche
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
@@ -52,7 +49,6 @@ const Search = styled("div")(({ theme }) => ({
   },
 }));
 
-// Wrapper pour l'icône de recherche
 const SearchIconWrapper = styled("div")(({ theme }) => ({
   padding: theme.spacing(0, 2),
   height: "100%",
@@ -63,7 +59,6 @@ const SearchIconWrapper = styled("div")(({ theme }) => ({
   justifyContent: "center",
 }));
 
-// Input stylisé à l'intérieur de la barre de recherche
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: "inherit",
   "& .MuiInputBase-input": {
@@ -77,7 +72,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-// Composant Navbar
 const Navbar = ({ open, handleDrawerOpen, toggleMode }) => {
   const theme = useTheme();
 
@@ -107,7 +101,6 @@ const Navbar = ({ open, handleDrawerOpen, toggleMode }) => {
 
         <Box flexGrow={1} />
         <Stack direction="row" spacing={2}>
-          {/* Bouton pour basculer entre clair/sombre */}
           <IconButton onClick={toggleMode} color="inherit">
             {theme.palette.mode === " light" ? (
               <LightModeOutlinedIcon />
@@ -116,7 +109,6 @@ const Navbar = ({ open, handleDrawerOpen, toggleMode }) => {
             )}
           </IconButton>
 
-          {/* Icônes de navigation */}
           <IconButton color="inherit">
             <SettingsOutlinedIcon />
           </IconButton>
