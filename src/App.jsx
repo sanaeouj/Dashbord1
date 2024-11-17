@@ -1,35 +1,39 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from 'react';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import Navbar from './Components/Navbar'; 
+import Sidebar from './Components/Sidebar'; 
+import { CssBaseline, Box } from '@mui/material';
+import { getDesignTokens } from './Components/Theme';  
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+  const [mode, setMode] = useState("light");
+  const [open, setOpen] = useState(false);
+  const theme = createTheme(getDesignTokens(mode));
+
+  const toggleMode = () => {
+    setMode((prevMode) => (prevMode === "light" ? "dark" : "light"));
+  };
+
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Box sx={{ display: 'flex' }}>
+        <Navbar open={open} handleDrawerOpen={handleDrawerOpen} toggleMode={toggleMode} />
+        <Sidebar open={open} handleDrawerClose={handleDrawerClose} />
+        <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+          <h1>Bienvenue dans l'application</h1>
+        </Box>
+      </Box>
+    </ThemeProvider>
+  );
+};
 
-export default App
+export default App;
