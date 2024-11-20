@@ -4,7 +4,6 @@ import Box from "@mui/material/Box";
 import MuiDrawer from "@mui/material/Drawer";
 import CssBaseline from "@mui/material/CssBaseline";
 import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import List from "@mui/material/List";
@@ -15,7 +14,8 @@ import ListItemText from "@mui/material/ListItemText";
 import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
 import Avatar from "@mui/material/Avatar";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import { grey } from "@mui/material/colors"; // Ajout de `grey` pour les couleurs
 
 // Icons
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
@@ -34,8 +34,8 @@ import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
 import avatarImage from "../assets/avatar.png";
 
 const drawerWidth = 240;
+const drawerShrinkedWidth = 60;
 
-// Styles for the opened and closed states of the drawer
 const openedMixin = (theme) => ({
   width: drawerWidth,
   transition: theme.transitions.create("width", {
@@ -51,13 +51,12 @@ const closedMixin = (theme) => ({
     duration: theme.transitions.duration.leavingScreen,
   }),
   overflowX: "hidden",
-  width: `calc(${theme.spacing(7)} + 1px)`,
+  width: drawerShrinkedWidth,
   [theme.breakpoints.up("sm")]: {
-    width: `calc(${theme.spacing(8)} + 1px)`,
+    width: drawerShrinkedWidth,
   },
 });
 
-// Header of the drawer
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
   alignItems: "center",
@@ -66,7 +65,6 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   ...theme.mixins.toolbar,
 }));
 
-// Custom styled Drawer
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== "open" })(
   ({ theme, open }) => ({
     width: drawerWidth,
@@ -82,11 +80,11 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== "open" 
   })
 );
 
-// Sidebar Component
 export default function Sidebar() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const toggleDrawer = () => setOpen((prev) => !prev);
 
@@ -94,8 +92,8 @@ export default function Sidebar() {
     {
       title: "Main",
       items: [
-        { text: "Dashboard", icon: <HomeOutlinedIcon />, path: "/" },
-        { text: "Manage Team", icon: <PeopleOutlineOutlinedIcon />, path: "/Manage" },
+        { text: "Dashboard", icon: <HomeOutlinedIcon />, path: "/dashboard" },
+        { text: "Manage Team", icon: <PeopleOutlineOutlinedIcon />, path: "/Teams" },
         { text: "Contacts Information", icon: <ContactsOutlinedIcon />, path: "/Contacts" },
         { text: "Invoices Balances", icon: <ReceiptOutlinedIcon />, path: "/Invoices" },
       ],
@@ -128,7 +126,6 @@ export default function Sidebar() {
             {theme.direction === "rtl" ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </IconButton>
         </DrawerHeader>
-        {/* Avatar and Admin Info */}
         <Box sx={{ textAlign: "center", my: 2 }}>
           <Avatar
             sx={{
@@ -142,7 +139,7 @@ export default function Sidebar() {
           />
           <Typography
             sx={{
-              fontSize: open ? 17 : 0,
+              fontSize: open ? 25 : 0,
               opacity: open ? 1 : 0,
               transition: "all 0.25s",
             }}
@@ -152,7 +149,7 @@ export default function Sidebar() {
           </Typography>
           <Typography
             sx={{
-              fontSize: open ? 15 : 0,
+              fontSize: open ? 18 : 0,
               opacity: open ? 1 : 0,
               transition: "all 0.25s",
               color: theme.palette.info.main,
@@ -163,7 +160,6 @@ export default function Sidebar() {
           </Typography>
         </Box>
         <Divider />
-        {/* Sections */}
         {listSections.map((section, index) => (
           <Box key={`section-${index}`}>
             <List>
@@ -177,6 +173,20 @@ export default function Sidebar() {
                       minHeight: 48,
                       justifyContent: open ? "initial" : "center",
                       px: 2.5,
+                      bgcolor:
+                        location.pathname === item.path
+                          ? theme.palette.mode === "dark"
+                            ? grey[800]
+                            : grey[300]
+                          : null,
+                      "&:hover": {
+                        bgcolor:
+                          location.pathname === item.path
+                            ? theme.palette.mode === "dark"
+                              ? grey[700]
+                              : grey[400]
+                            : grey[200],
+                      },
                     }}
                   >
                     <ListItemIcon
@@ -184,6 +194,9 @@ export default function Sidebar() {
                         minWidth: 0,
                         mr: open ? 3 : "auto",
                         justifyContent: "center",
+                        "& svg": {
+                          fontSize: "1.8rem", // Taille fixe
+                        },
                       }}
                     >
                       {item.icon}
@@ -199,7 +212,6 @@ export default function Sidebar() {
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
-      
       </Box>
     </Box>
   );

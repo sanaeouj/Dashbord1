@@ -1,58 +1,67 @@
-import React, { useState, useEffect } from 'react';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-import Navbar from './Components/Navbar'; 
-import Sidebar from './Components/Sidebar'; 
-import { CssBaseline, Box } from '@mui/material';
-import { getDesignTokens } from './Components/Theme';  
-import { Outlet } from 'react-router-dom'; // Import Outlet for nested routes
+import React, { useState, useEffect } from "react";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import Navbar from "./Components/Navbar";
+import Sidebar from "./Components/Sidebar";
+import { CssBaseline, Box } from "@mui/material";
+import { getDesignTokens } from "./Components/Theme";
+import { Outlet } from "react-router-dom";
 
 const App = () => {
-  const [mode, setMode] = useState("light");
-  const [open, setOpen] = useState(false);
+  const [mode, setMode] = useState("light"); // Default theme
+  const [open, setOpen] = useState(false); // Sidebar state
 
-  // Load theme from localStorage
+  // Load theme mode from localStorage on mount
   useEffect(() => {
-    const savedMode = localStorage.getItem("theme") || "light";
-    setMode(savedMode);
+    try {
+      const savedMode = localStorage.getItem("theme") || "light";
+      setMode(savedMode);
+    } catch (error) {
+      console.error("Could not access localStorage:", error);
+    }
   }, []);
 
-  // Toggle theme mode
+  // Toggle theme mode and save it to localStorage
   const toggleMode = () => {
     const newMode = mode === "light" ? "dark" : "light";
     setMode(newMode);
-    localStorage.setItem("theme", newMode);
+    try {
+      localStorage.setItem("theme", newMode);
+    } catch (error) {
+      console.error("Could not save theme to localStorage:", error);
+    }
   };
 
-  // Create a theme instance
+  // Theme instance
   const theme = createTheme(getDesignTokens(mode));
 
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
+  // Handle drawer state
+  const handleDrawerOpen = () => setOpen(true);
+  const handleDrawerClose = () => setOpen(false);
 
   return (
     <ThemeProvider theme={theme}>
+      {/* Global styles */}
       <CssBaseline />
-      <Box sx={{ display: 'flex' }}>
+      <Box sx={{ display: "flex" }}>
+        {/* Navbar */}
         <Navbar 
           open={open} 
           handleDrawerOpen={handleDrawerOpen} 
           toggleMode={toggleMode} 
         />
+        {/* Sidebar */}
         <Sidebar 
           open={open} 
           handleDrawerClose={handleDrawerClose} 
         />
+        {/* Main content */}
         <Box 
           component="main" 
-          sx={{ flexGrow: 1, p: 3 }}
-          role="main" // Accessibility improvement
+          sx={{ flexGrow: 1, p: 3, display: 'flex', height: "100vh", mt: "64px" }} 
+          role="main" 
+          className="main"
         >
-          <Outlet /> {/* This will render the child routes */}
+          <Outlet /> {/* Nested routes rendered here */}
         </Box>
       </Box>
     </ThemeProvider>

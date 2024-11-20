@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import App from './App';
 import Dashboard from './Pages/dashboard/Dashboard';  
-import Teams from './Pages/teams/ManageTeam';  
+import Teams from './Pages/teams/Teams';  
 import Contacts from './Pages/contacts/Contacts';
 import Invoices from './Pages/invoices/Invoices';
 import ProfileForm from './Pages/form/ProfileForm';
@@ -22,7 +22,7 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       { path: 'dashboard', element: <Dashboard /> },
-      { path: 'teams', element: <Teams /> },
+      { path: 'Teams', element: <Teams /> },
       { path: 'contacts', element: <Contacts /> },
       { path: 'invoices', element: <Invoices /> },
       { path: 'form', element: <ProfileForm /> },
