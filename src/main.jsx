@@ -6,7 +6,7 @@ import Dashboard from './Pages/dashboard/Dashboard';
 import Teams from './Pages/teams/Teams';  
 import Contacts from './Pages/contacts/Contacts';
 import Invoices from './Pages/invoices/Invoices';
-import ProfileForm from './Pages/form/ProfileForm';
+import Form from './Pages/form/Form';
 import Calendar from './Pages/calendar/Calendar';
 import FAQ from './Pages/faq/FAQ';
 import BarChart from './Pages/bar/BarChart';
@@ -25,7 +25,7 @@ const router = createBrowserRouter([
       { path: 'Teams', element: <Teams /> },
       { path: 'contacts', element: <Contacts /> },
       { path: 'invoices', element: <Invoices /> },
-      { path: 'form', element: <ProfileForm /> },
+      { path: 'form', element: <Form /> },
       { path: 'calendar', element: <Calendar /> },
       { path: 'faq', element: <FAQ /> },
       { path: 'bar', element: <BarChart /> },

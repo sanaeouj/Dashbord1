@@ -5,6 +5,7 @@ import Sidebar from "./Components/Sidebar";
 import { CssBaseline, Box } from "@mui/material";
 import { getDesignTokens } from "./Components/Theme";
 import { Outlet } from "react-router-dom";
+import './index.css';
 
 const App = () => {
   const [mode, setMode] = useState("light"); // Default theme
@@ -57,7 +58,7 @@ const App = () => {
         {/* Main content */}
         <Box 
           component="main" 
-          sx={{ flexGrow: 1, p: 3, display: 'flex', height: "100vh", mt: "64px" }} 
+          sx={{ flexGrow: 1, p: 3, display: 'flex', height: "100%",weidth:'100%', mt: "100px" }} 
           role="main" 
           className="main"
         >
