@@ -1,15 +1,15 @@
 import React from "react";
 import { Box, useTheme } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
-import { rows, columns } from "./data";
+import { rows, columns } from "./data"; // Ensure your 'rows' and 'columns' are correctly defined
 import Header from "../../Components/Header";
 
 const Contacts = () => {
   const theme = useTheme();
 
   return (
-    <Box sx={{ height: 600, width: "80%",  }}>
-    <Header Title="CONTACTS" subTitle="List of Contacts for Future Reference" />
+    <Box sx={{ height: 600, width: "80%" }}>
+      <Header Title="CONTACTS" subTitle="List of Contacts for Future Reference" />
 
       {rows?.length > 0 && columns?.length > 0 ? (
         <DataGrid
@@ -18,7 +18,7 @@ const Contacts = () => {
           pagination
           pageSize={5}
           rowsPerPageOptions={[5, 10, 20]}
-          aria-label="Manage team table"
+          aria-label="Manage contacts table"
           slots={{ toolbar: GridToolbar }}
           sx={{
             "& .MuiDataGrid-root": {
@@ -34,7 +34,12 @@ const Contacts = () => {
               fontSize: 16,
             },
             "& .MuiDataGrid-footerContainer": {
+              backgroundColor: theme.palette.mode === "dark" ? "black" : theme.palette.primary.light,
+              color: theme.palette.mode === "dark" ? "white" : "black",  // Text color changes based on theme
+            },
+            "& .MuiDataGrid-toolbarContainer": {
               backgroundColor: theme.palette.primary.light,
+              color: theme.palette.mode === "dark" ? "white" : "black",
             },
           }}
         />

@@ -1,12 +1,12 @@
- import React from "react";
+import React from "react";
 import { Box, Typography, useTheme } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
-import { AdminPanelSettingsOutlined, LockOpenOutlined, SecurityOutlined } from "@mui/icons-material"; // Importation des icônes nécessaires
-import {rows} from './data';
+import { AdminPanelSettingsOutlined, LockOpenOutlined, SecurityOutlined } from "@mui/icons-material";
+import { rows } from './data'; // Ensure that rows contains data
 import Header from "../../Components/Header";
 
 const Teams = () => {
-  const theme = useTheme(); // Accéder au thème pour les couleurs
+  const theme = useTheme();
 
   const columns = [
     { 
@@ -51,7 +51,7 @@ const Teams = () => {
       align: "center", 
       headerAlign: "center", 
       renderCell: ({ row }) => {
-        const access = row.Access; // Récupérer la valeur de la cellule "Access"
+        const access = row.Access;
 
         return (
           <Box sx={{
@@ -63,53 +63,54 @@ const Teams = () => {
             display: 'flex', 
             justifyContent: 'space-evenly',
             backgroundColor: access === 'Admin' 
-              ? theme.palette.primary.light 
+              ? theme.palette.primary.dark 
               : access === 'User' 
-              ? theme.palette.secondary.light 
-              : theme.palette.success.light, // Utiliser une couleur par défaut si aucun cas n'est trouvé
+              ? theme.palette.secondary.dark 
+              : theme.palette.success.dark,
           }}>
-            {/* Affichage conditionnel des icônes */}
-            {access === "Admin" && <AdminPanelSettingsOutlined sx={{color:'#FFF'}} fontSize="small" />}
-            {access === "Manager" && <LockOpenOutlined  sx={{color:'#FFF'}} fontSize="small" />}
-            {access === "User" && <SecurityOutlined sx={{color:'#FFF'}}  fontSize="small" />}
-            <Typography sx={{ fontSize: "13px" ,color:'#FFF' }} variant="body1">{access}</Typography> 
+            {access === "Admin" && <AdminPanelSettingsOutlined sx={{ color: '#FFF' }} fontSize="small" />}
+            {access === "Manager" && <LockOpenOutlined sx={{ color: '#FFF' }} fontSize="small" />}
+            {access === "User" && <SecurityOutlined sx={{ color: '#FFF' }} fontSize="small" />}
+            <Typography sx={{ fontSize: "13px", color: '#FFF' }} variant="body1">{access}</Typography>
           </Box>
         );
       },
     },
   ];
 
-
-
   return (
-     
-
-      <Box sx={{ height: "600", width: "80%" }}>
-              <Header Title="TEAM" subTitle="Managing the Team Members" />
-
-        <DataGrid
-          rows={rows}
-          columns={columns}
-          aria-label="Manage team table"
-          sx={{
-            "& .MuiDataGrid-root": {
-              border: "none",
-            },
-            "& .MuiDataGrid-cell": {
-              borderBottom: "none",
-              color: theme.palette.mode === "dark" ? "white" : "black",
-            },
-            "& .MuiDataGrid-columnHeaders": {
-              backgroundColor: theme.palette.primary.light,
-              color: theme.palette.mode === "dark" ? "white" : "black",
-              fontSize: 16,
-            },
-            "& .MuiDataGrid-footerContainer": {
-              backgroundColor: theme.palette.primary.light,
-            },
-          }}
-        />
-      </Box>
+    <Box sx={{ height: "600px", width: "80%" }}>
+      <Header Title="TEAM" subTitle="Managing the Team Members" />
+      <DataGrid
+        rows={rows}
+        columns={columns}
+        pageSize={5}
+        rowsPerPageOptions={[5, 10, 20]}
+        aria-label="Manage team table"
+        sx={{
+          "& .MuiDataGrid-root": {
+            border: "none",
+          },
+          "& .MuiDataGrid-cell": {
+            borderBottom: "none",
+            color: theme.palette.mode === "dark" ? "white" : "black",
+          },
+          "& .MuiDataGrid-columnHeaders": {
+            backgroundColor: theme.palette.primary.light,
+            color: theme.palette.mode === "dark" ? "white" : "black",
+            fontSize: 16,
+          },
+          "& .MuiDataGrid-footerContainer": {
+            backgroundColor: theme.palette.mode === "dark" ? "black" : theme.palette.primary.light,
+            color: theme.palette.mode === "dark" ? "white" : theme.palette.mode === "light" ? "black" : "white",
+          },
+          "& .MuiDataGrid-toolbarContainer": {
+            backgroundColor: theme.palette.primary.light,
+            color: theme.palette.mode === "dark" ? "white" : "black",
+          },
+        }}
+      />
+    </Box>
   );
 };
 

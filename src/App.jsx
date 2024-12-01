@@ -35,6 +35,7 @@ const App = () => {
   // Set body theme
   useEffect(() => {
     document.body.setAttribute('data-theme', mode);
+    document.body.style.backgroundColor = mode === "light" ? "#fff" : "#121212"; // Set body background color
   }, [mode]);
 
   // Theme instance
@@ -59,11 +60,11 @@ const App = () => {
         />
         <Box 
           component="main" 
-          sx={{ flexGrow: 1, p: 3, display: 'flex', height: "100%", width: '100%', mt: "100px" }} 
+          sx={{ flexGrow: 1, p: 3, display: 'flex', height: "100vh", width: '100%', mt: "100px" }} 
           role="main" 
           className="main"
         >
-          <Outlet /> {/* Nested routes rendered here */}
+          <Outlet /> 
         </Box>
       </Box>
     </ThemeProvider>

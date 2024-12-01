@@ -11,7 +11,7 @@ const Dashboard = () => {
   const theme = useTheme(); // Correctly using 'theme'
 
   return (
-    <div style={{ width: "100%" }}>
+    <div style={{ width: "100%",height:"100%" }}>
    
       <Box sx={{ display: "flex", justifyContent: "flex-end", mb: 2 }}>
         <Button
