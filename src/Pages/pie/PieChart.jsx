@@ -1,7 +1,8 @@
 import React from 'react';
-import { Box, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import { ResponsivePie } from '@nivo/pie';
 import { useTheme } from '@mui/material/styles';
+import Header from "../../Components/Header";
 
 const data = [
   { id: 't-shirts', label: 'T-Shirts', value: 1200 },
@@ -36,13 +37,13 @@ const PieChart = ({ isDashbord = false }) => {
         margin: 'auto',
         marginTop: '20px',
         padding: '20px',
+        
       }}
     >
-      {!isDashbord && (
-        <Typography variant="body1" sx={{ color: textColor }}>
-          Wind Distribution Broadway Bar.
-        </Typography>
-      )}
+              {!isDashbord && <Header Title="Pie CHART" subTitle="          Wind Distribution Broadway Bar.
+" />}
+
+    
       <ResponsivePie
         data={data}
         margin={isDashbord ? {top: 10, right: 0, bottom: 10, left: 0}: {top: 50, right: 80, bottom: 80, left: 80} }
@@ -65,7 +66,7 @@ const PieChart = ({ isDashbord = false }) => {
           modifiers: [['darker', 2]],
         }}
         colors={colors}
-        legends={isDashbord ? [] : [ // Ensure legends is an array
+        legends={isDashbord ? [] : [ 
           {
             anchor: 'bottom',
             direction: 'row',

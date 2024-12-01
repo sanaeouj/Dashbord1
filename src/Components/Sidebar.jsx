@@ -14,8 +14,9 @@ import ListItemText from "@mui/material/ListItemText";
 import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
 import Avatar from "@mui/material/Avatar";
+import Tooltip from "@mui/material/Tooltip";
 import { useNavigate, useLocation } from "react-router-dom";
-import { grey } from "@mui/material/colors"; // Ajout de `grey` pour les couleurs
+import { grey } from "@mui/material/colors";
 
 // Icons
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
@@ -65,20 +66,16 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   ...theme.mixins.toolbar,
 }));
 
-const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== "open" })(
-  ({ theme, open }) => ({
-    width: drawerWidth,
-    flexShrink: 0,
-    whiteSpace: "nowrap",
-    boxSizing: "border-box",
-    ...(open && {
-      "& .MuiDrawer-paper": openedMixin(theme),
-    }),
-    ...(!open && {
-      "& .MuiDrawer-paper": closedMixin(theme),
-    }),
-  })
-);
+const Drawer = styled(MuiDrawer, {
+  shouldForwardProp: (prop) => prop !== "open",
+})(({ theme, open }) => ({
+  width: drawerWidth,
+  flexShrink: 0,
+  whiteSpace: "nowrap",
+  boxSizing: "border-box",
+  ...(open && { "& .MuiDrawer-paper": openedMixin(theme) }),
+  ...(!open && { "& .MuiDrawer-paper": closedMixin(theme) }),
+}));
 
 export default function Sidebar() {
   const theme = useTheme();
@@ -139,22 +136,20 @@ export default function Sidebar() {
           />
           <Typography
             sx={{
-              fontSize: open ? 25 : 0,
+              fontSize: open ? 18 : 0,
               opacity: open ? 1 : 0,
               transition: "all 0.25s",
             }}
-            align="center"
           >
             Sanae
           </Typography>
           <Typography
             sx={{
-              fontSize: open ? 18 : 0,
+              fontSize: open ? 14 : 0,
               opacity: open ? 1 : 0,
               transition: "all 0.25s",
               color: theme.palette.info.main,
             }}
-            align="center"
           >
             Admin
           </Typography>
@@ -164,46 +159,47 @@ export default function Sidebar() {
           <Box key={`section-${index}`}>
             <List>
               {section.items.map((item) => (
-                <ListItem key={item.path} disablePadding sx={{ display: "block" }}>
-                  <ListItemButton
-                    onClick={() => {
-                      navigate(item.path);
-                    }}
-                    sx={{
-                      minHeight: 48,
-                      justifyContent: open ? "initial" : "center",
-                      px: 2.5,
-                      bgcolor:
-                        location.pathname === item.path
-                          ? theme.palette.mode === "dark"
-                            ? grey[800]
-                            : grey[300]
-                          : null,
-                      "&:hover": {
-                        bgcolor:
-                          location.pathname === item.path
-                            ? theme.palette.mode === "dark"
-                              ? grey[700]
-                              : grey[400]
-                            : grey[200],
-                      },
-                    }}
-                  >
-                    <ListItemIcon
-                      sx={{
-                        minWidth: 0,
-                        mr: open ? 3 : "auto",
-                        justifyContent: "center",
-                        "& svg": {
-                          fontSize: "1.8rem", // Taille fixe
-                        },
-                      }}
-                    >
-                      {item.icon}
-                    </ListItemIcon>
-                    <ListItemText primary={item.text} sx={{ opacity: open ? 1 : 0 }} />
-                  </ListItemButton>
-                </ListItem>
+      <ListItem key={item.path} disablePadding sx={{display:"Bloc"}}>
+     <Tooltip
+  title={!open ? item.text : ""}
+  placement="right"
+ 
+>
+        <ListItemButton
+          onClick={() => navigate(item.path)}
+          sx={{
+            minHeight: 48,
+            justifyContent: open ? "initial" : "center",
+            px: 2.5,
+            bgcolor:
+              location.pathname === item.path
+                ? theme.palette.mode === "dark"
+                  ? grey[800]
+                  : grey[300]
+                : "inherit",
+            "&:hover": {
+              bgcolor: grey[200],
+            },
+          }}
+        >
+          <ListItemIcon
+            sx={{
+              minWidth: 0,
+              mr: open ? 3 : "auto",
+              justifyContent: "center",
+            }}
+          >
+            {item.icon}
+          </ListItemIcon>
+          
+          <ListItemText
+            primary={item.text}
+            sx={{ opacity: open ? 1 : 0 }}
+          />
+        </ListItemButton>
+      </Tooltip>
+    </ListItem>
+    
               ))}
             </List>
             {index < listSections.length - 1 && <Divider />}
@@ -212,6 +208,7 @@ export default function Sidebar() {
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
+        {/* Main content goes here */}
       </Box>
     </Box>
   );

@@ -13,9 +13,7 @@ import BarChart from './Pages/bar/BarChart';
 import PieChart from './Pages/pie/PieChart';
 import LineChart from './Pages/line/LineChart';
 import GeographyChart from './Pages/geography/GeographyChart';
-import NotFound from './Pages/notfound/NotFound'; // 404 Page
-
-// Create the router with all routes
+import NotFound from './Pages/notfound/NotFound';  
 const router = createBrowserRouter([
   {
     path: '/',
@@ -32,14 +30,13 @@ const router = createBrowserRouter([
       { path: 'pie', element: <PieChart /> },
       { path: 'line', element: <LineChart /> },
       { path: 'geography', element: <GeographyChart /> },
-      { path: '*', element: <NotFound /> }, // Catch-all for 404
+      { path: '*', element: <NotFound /> },  
     ],
   },
 ]);
 
-// Render the application
-ReactDOM.createRoot(document.getElementById('root')).render(
+ ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <RouterProvider router={router} />  {/* Wrap your app with RouterProvider here */}
+    <RouterProvider router={router} />  
   </React.StrictMode>
 );

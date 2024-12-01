@@ -3,6 +3,7 @@ import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, D
 import DeleteIcon from '@mui/icons-material/Delete';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import { rows as externalRows } from './data'; // Importation des données depuis data.js
+import Header from "../../Components/Header";
 
 const Invoices = () => {
   const [rows, setRows] = useState(externalRows); // Utilisation des données importées depuis data.js
@@ -27,8 +28,8 @@ const Invoices = () => {
 
   return (
     <Box sx={{ height: 650, width: '98%', mx: 'auto' }}>
-      {/* Bouton Supprimer */}
-      <Box sx={{ mb: 2, display: 'flex', justifyContent: 'flex-end' }}>
+              <Header Title="Invoices" subTitle="List of Invoice Balances" />
+              <Box sx={{ mb: 2, display: 'flex', justifyContent: 'flex-end' }}>
         <Button
           variant="contained"
           color="error"

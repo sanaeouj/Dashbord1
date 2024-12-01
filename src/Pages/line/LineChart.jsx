@@ -2,6 +2,7 @@ import React from 'react';
 import { Box, Typography } from '@mui/material';
 import { ResponsiveLine } from '@nivo/line';
 import { useTheme } from '@mui/material/styles';
+import Header from "../../Components/Header";
 
 const data = [
   {
@@ -55,15 +56,9 @@ const LineChart = ({isDashbord =false}) => {
         margin: 'auto',
       }}
     >
-      <Typography
-        variant="h4"
-        sx={{ color: textColor, textAlign: 'center', mb: 2 }}
-      >
-        Line Chart
-      </Typography>
-      <Typography variant="body1" sx={{ color: textColor, textAlign: 'center', mb: 4 }}>
-        Ventes de vêtements par pays.
-      </Typography>
+              {!isDashbord && <Header Title="LINE CHART" subTitle="Clothing Sales by Country" />}
+
+  
       <ResponsiveLine
         data={data}
         margin={{ top: 50, right: 110, bottom: 50, left: 60 }}

@@ -2,12 +2,15 @@ import React from "react";
 import { Box, useTheme } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { rows, columns } from "./data";
+import Header from "../../Components/Header";
 
 const Contacts = () => {
   const theme = useTheme();
 
   return (
-    <Box sx={{ height: 600, width: "80%", mx: "auto" }}>
+    <Box sx={{ height: 600, width: "80%",  }}>
+    <Header Title="CONTACTS" subTitle="List of Contacts for Future Reference" />
+
       {rows?.length > 0 && columns?.length > 0 ? (
         <DataGrid
           rows={rows}

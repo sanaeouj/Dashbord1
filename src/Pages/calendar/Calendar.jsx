@@ -7,6 +7,8 @@ import interactionPlugin from '@fullcalendar/interaction';
 import { Box, Typography, Checkbox, List, ListItem } from '@mui/material';
 import { INITIAL_EVENTS, createEventId } from './event-utils';
 import './index.css';
+import Header from "../../Components/Header";
+
 const Calendar = () => {
   const [weekendsVisible, setWeekendsVisible] = useState(true);
   const [currentEvents, setCurrentEvents] = useState([]);
@@ -48,7 +50,7 @@ const Calendar = () => {
 
   return (
     <Box display="flex" height="100vh">
-      <Sidebar
+              <Sidebar
         weekendsVisible={weekendsVisible}
         handleWeekendsToggle={handleWeekendsToggle}
         currentEvents={currentEvents}

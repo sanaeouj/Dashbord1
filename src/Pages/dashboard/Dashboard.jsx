@@ -4,14 +4,22 @@ import Row2 from "./Row2";
 import Row3 from "./Row3";
 import Button from "@mui/material/Button";
 import { DownloadOutlined } from "@mui/icons-material";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
+import { useTheme } from "@emotion/react";
 
 const Dashboard = () => {
+  const theme = useTheme(); // Correctly using 'theme'
+
   return (
-    <div style={{ width: '100%' }}>
-      <Box sx={{ display: 'flex', justifyContent: 'flex-end', mb: 2 }}>
-        <Button sx={{ padding: '6px 8px', textTransform: 'capitalize' }} variant="contained" color="primary">
-          <DownloadOutlined sx={{ marginRight: '8px' }} />
+    <div style={{ width: "100%" }}>
+   
+      <Box sx={{ display: "flex", justifyContent: "flex-end", mb: 2 }}>
+        <Button
+          sx={{ padding: "6px 8px", textTransform: "capitalize" }}
+          variant="contained"
+          color="primary"
+        >
+          <DownloadOutlined sx={{ marginRight: "8px" }} />
           Download Reports
         </Button>
       </Box>

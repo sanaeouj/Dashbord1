@@ -1,8 +1,10 @@
-import React from "react";
+ import React from "react";
 import { Box, Typography, useTheme } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { AdminPanelSettingsOutlined, LockOpenOutlined, SecurityOutlined } from "@mui/icons-material"; // Importation des icônes nécessaires
 import {rows} from './data';
+import Header from "../../Components/Header";
+
 const Teams = () => {
   const theme = useTheme(); // Accéder au thème pour les couleurs
 
@@ -83,6 +85,8 @@ const Teams = () => {
      
 
       <Box sx={{ height: "600", width: "80%" }}>
+              <Header Title="TEAM" subTitle="Managing the Team Members" />
+
         <DataGrid
           rows={rows}
           columns={columns}

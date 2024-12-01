@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Box, Stack, MenuItem, Button, TextField, Snackbar, Alert } from "@mui/material"; // Imported correctly
 import { useForm } from "react-hook-form";
+import Header from "../../Components/Header";
 
 // Validation regex
 const regEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -50,6 +51,8 @@ const Form = () => {
       noValidate
       autoComplete="off"
     >
+  <Header Title="CONTACTE USER" subTitle="Create a New User Profile" />
+
       <Stack sx={{ gap: 2 }} direction={"row"}>
         <TextField
           error={Boolean(errors.firstName)}

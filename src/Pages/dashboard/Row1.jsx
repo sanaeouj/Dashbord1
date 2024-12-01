@@ -6,6 +6,8 @@ import { useTheme } from "@mui/material/styles";
 
 const Row1 = () => {
   const theme = useTheme();
+
+  // Data structure for the items
   const items = [
     {
       icon: <MailOutline fontSize="large" />,
@@ -57,25 +59,27 @@ const Row1 = () => {
         <Paper
           key={index}
           sx={{
-            minWidth: { xs: "100%", sm: "333px" },
+            minWidth: { xs: "100%", sm: "333px" }, // Responsive minWidth
             p: 2.5,
             display: "flex",
-            flexDirection: "row", 
-            alignItems: "center",  
-            gap: 2,  
+            flexDirection: "row",
+            alignItems: "center",
+            gap: 2,
+            boxShadow: 3,
           }}
         >
            <Stack direction="column" spacing={1} sx={{ flex: 1 }}>
-            <Typography
-              variant="h6"
+            <Box
               sx={{
                 color: theme.palette.secondary.main,
                 display: "flex",
                 alignItems: "center",
+                justifyContent: "center",
+                fontSize: "2rem",
               }}
             >
               {item.icon}
-            </Typography>
+            </Box>
             <Typography variant="h5" sx={{ fontWeight: "bold" }}>
               {item.title}
             </Typography>
@@ -88,7 +92,7 @@ const Row1 = () => {
             sx={{
               height: "100px",
               width: "100px",
-              flexShrink: 0,  
+              flexShrink: 0,
             }}
           >
             <ResponsivePie
@@ -101,9 +105,12 @@ const Row1 = () => {
               borderWidth={1}
               borderColor={{ from: "color", modifiers: [["darker", 0.2]] }}
               arcLabelsSkipAngle={10}
-              arcLabelsTextColor={{ from: "color", modifiers: [["darker", 2]] }}
-              colors={{ scheme: 'nivo' }}
-              enableArcLinkLabels={false}  
+              arcLabelsTextColor={{
+                from: "color",
+                modifiers: [["darker", 2]],
+              }}
+              colors={{ scheme: "nivo" }}
+              enableArcLinkLabels={false} // Disabled link labels for cleaner look
             />
           </Box>
         </Paper>
