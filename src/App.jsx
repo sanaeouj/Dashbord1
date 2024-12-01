@@ -32,6 +32,11 @@ const App = () => {
     }
   };
 
+  // Set body theme
+  useEffect(() => {
+    document.body.setAttribute('data-theme', mode);
+  }, [mode]);
+
   // Theme instance
   const theme = createTheme(getDesignTokens(mode));
 
@@ -41,24 +46,20 @@ const App = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      {/* Global styles */}
       <CssBaseline />
       <Box sx={{ display: "flex" }}>
-        {/* Navbar */}
         <Navbar 
           open={open} 
           handleDrawerOpen={handleDrawerOpen} 
           toggleMode={toggleMode} 
         />
-        {/* Sidebar */}
         <Sidebar 
           open={open} 
           handleDrawerClose={handleDrawerClose} 
         />
-        {/* Main content */}
         <Box 
           component="main" 
-          sx={{ flexGrow: 1, p: 3, display: 'flex', height: "100%",weidth:'100%', mt: "100px" }} 
+          sx={{ flexGrow: 1, p: 3, display: 'flex', height: "100%", width: '100%', mt: "100px" }} 
           role="main" 
           className="main"
         >

@@ -1,6 +1,7 @@
 import React from 'react';
 import { ResponsiveBar } from '@nivo/bar';
 import { Box } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 
 // Jeu de données pour les ventes de vêtements
 const data = [
@@ -10,8 +11,6 @@ const data = [
     'jeans': 800,
     'robes': 600,
     'chaussures': 500,
-    'vestes': 450,
-    'accessoires': 350,
   },
   {
     country: 'France',
@@ -19,8 +18,6 @@ const data = [
     'jeans': 1300,
     'robes': 1100,
     'chaussures': 900,
-    'vestes': 850,
-    'accessoires': 700,
   },
   {
     country: 'Espagne',
@@ -28,60 +25,43 @@ const data = [
     'jeans': 950,
     'robes': 800,
     'chaussures': 700,
-    'vestes': 600,
-    'accessoires': 500,
-  }
+  },
 ];
 
-const BarChart = () => {
+const BarChart = ({ isDashbord = false }) => {
+  const theme = useTheme();
+
+  const textColor = theme.palette.mode === 'dark' ? '#FFFFFF' : '#000000';
+
   return (
-    <Box sx={{ height: 400, width: '100%' }}> {/* Définir une hauteur pour le graphique */}
+    <Box sx={{height: isDashbord ? '390px' : '55vh',
+      width: isDashbord ? '690px' : '55vh', backgroundColor: 'transparent' }}>
       <ResponsiveBar
         data={data}
-        keys={['t-shirts', 'jeans', 'robes', 'chaussures', 'vestes', 'accessoires']}
+        keys={['t-shirts', 'jeans', 'robes', 'chaussures']}
         indexBy="country"
-        margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
+        margin={isDashbord ? {top: 20, right: 40, bottom: 10, left: 40}: { top: 50, right: 130, bottom: 50, left: 60 }}
         valueScale={{ type: 'linear' }}
         indexScale={{ type: 'band', round: true }}
-        colors={{ scheme: 'nivo' }}
-        defs={[
-          {
-            id: 'dots',
-            type: 'patternDots',
-            background: 'inherit',
-            color: '#38bcb2',
-            size: 4,
-            padding: 1,
-            stagger: true,
-          },
-          {
-            id: 'lines',
-            type: 'patternLines',
-            background: 'inherit',
-            color: '#eed312',
-            rotation: -45,
-            lineWidth: 6,
-            spacing: 10,
-          },
-        ]}
-        fill={[
-          {
-            match: {
-              id: 'chaussures',
-            },
-            id: 'dots',
-          },
-          {
-            match: {
-              id: 'vestes',
-            },
-            id: 'lines',
-          },
-        ]}
+        colors={({ id }) => {
+          switch (id) {
+            case 't-shirts':
+              return theme.palette.primary.main;
+            case 'jeans':
+              return theme.palette.secondary.main;
+            case 'robes':
+              return theme.palette.error.main;
+            case 'chaussures':
+              return theme.palette.success.main;
+            default:
+              return theme.palette.text.primary;
+          }
+        }}
         borderColor={{
           from: 'color',
           modifiers: [['darker', 1.6]],
         }}
+        borderWidth={0}
         axisTop={null}
         axisRight={null}
         axisBottom={{
@@ -91,6 +71,8 @@ const BarChart = () => {
           legend: 'Pays',
           legendPosition: 'middle',
           legendOffset: 32,
+          tickTextColor: textColor,
+          legendTextColor: textColor,
         }}
         axisLeft={{
           tickSize: 5,
@@ -99,13 +81,12 @@ const BarChart = () => {
           legend: 'Ventes',
           legendPosition: 'middle',
           legendOffset: -40,
+          tickTextColor: textColor,
+          legendTextColor: textColor,
         }}
         labelSkipWidth={12}
         labelSkipHeight={12}
-        labelTextColor={{
-          from: 'color',
-          modifiers: [['darker', 1.6]],
-        }}
+        labelTextColor={textColor}
         legends={[
           {
             dataFrom: 'keys',
@@ -128,11 +109,39 @@ const BarChart = () => {
                 },
               },
             ],
+            itemTextColor: textColor,
           },
         ]}
         role="application"
         ariaLabel="Ventes de vêtements en ligne"
         barAriaLabel={(e) => `${e.id}: ${e.formattedValue} dans le pays: ${e.indexValue}`}
+        tooltip={({ id, value, indexValue }) => (
+          <div
+            style={{
+              color: textColor,
+              backgroundColor: theme.palette.background.paper,
+              padding: '5px',
+              borderRadius: '4px',
+            }}
+          >
+            {`${id}: ${value} dans ${indexValue}`}
+          </div>
+        )}
+        theme={{
+          background: 'transparent', // Supprime le fond du graphique
+          axis: {
+            ticks: {
+              text: {
+                fill: textColor, // Couleur des ticks
+              },
+            },
+          },
+          legends: {
+            text: {
+              fill: textColor, // Couleur du texte des légendes
+            },
+          },
+        }}
       />
     </Box>
   );
